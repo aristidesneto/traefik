@@ -1,0 +1,3 @@
+/config/traefik_dynamic.toml
+/letsencrypt/acme.json
+.env

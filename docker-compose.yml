@@ -1,0 +1,52 @@
+version: '3.3'
+
+services:
+  traefik:
+    image: traefik:2.3
+    container_name: traefik
+    restart: always
+    networks:
+      - proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./config/traefik.toml:/traefik.toml
+      - ./config/traefik_dynamic.toml:/traefik_dynamic.toml
+      - ./letsencrypt/acme.json:/acme.json
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  wordpress:
+    image: wordpress:latest
+    container_name: wordpress
+    restart: always
+    environment:
+      - WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD}
+    labels:
+      - traefik.http.routers.wordpress.rule=Host(`${HOST_BLOG}`)
+      - traefik.http.routers.wordpress.tls=true
+      - traefik.http.routers.wordpress.tls.certresolver=lets-encrypt
+      - traefik.port=80
+    networks:
+      - internal
+      - proxy
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    networks:
+      - internal
+    labels:
+      - traefik.enable=false
+
+networks:
+  proxy:
+    external: true
+  internal:
+    external: false
