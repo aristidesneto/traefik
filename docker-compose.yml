@@ -56,7 +56,7 @@ services:
       - proxy
     labels:
       # Frontend
-      - "traefik.http.routers.portainer.rule=Host(`${HOST_PORTAINER`)"
+      - "traefik.http.routers.portainer.rule=Host(`${HOST_PORTAINER}`)"
       - "traefik.http.services.portainer.loadbalancer.server.port=9000"
       - "traefik.http.routers.portainer.service=portainer"
       - "traefik.http.routers.portainer.tls.certresolver=lets-encrypt"
