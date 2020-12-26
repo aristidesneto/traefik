@@ -56,10 +56,10 @@ services:
       - proxy
     labels:
       # Frontend
-      - "traefik.http.routers.frontend-portainer.rule=Host(`${HOST_PORTAINER`)"
-      - "traefik.http.services.frontend-portainer.loadbalancer.server.port=9000"
-      - "traefik.http.routers.frontend-portainer.service=frontend-portainer"
-      - "traefik.http.routers.frontend-portainer.tls.certresolver=lets-encrypt"
+      - "traefik.http.routers.portainer.rule=Host(`${HOST_PORTAINER`)"
+      - "traefik.http.services.portainer.loadbalancer.server.port=9000"
+      - "traefik.http.routers.portainer.service=portainer"
+      - "traefik.http.routers.portainer.tls.certresolver=lets-encrypt"
 
       # Edge
       - "traefik.enable=false"
