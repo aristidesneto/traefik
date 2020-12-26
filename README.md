@@ -19,7 +19,7 @@ chmod +x /usr/local/bin/docker-compose
 Clone o projeto:
 
 ```
-git clone https://github.com/aristidesneto/traefik.git && cd traefik-wordpress
+git clone https://github.com/aristidesneto/traefik.git && cd traefik
 ```
 
 Crie o arquivo de configuração `.env` a partir do `.env.example`
@@ -85,7 +85,7 @@ Edite o arquivo `config/traefik_dynamic.toml`:
     certResolver = "lets-encrypt"
 ```
 
-Altere o arquivo de configuração `config/traefik.toml` e adicione seu e-mail para que seja utilizado pelo Let's Encrypt:
+Abra o arquivo de configuração `config/traefik.toml` e adicione seu e-mail para que seja utilizado pelo Let's Encrypt:
 
 ```
 ...
