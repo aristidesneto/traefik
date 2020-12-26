@@ -12,7 +12,7 @@
 	dashboard = true
 
 [certificatesResolvers.lets-encrypt.acme]
-  email = "suporte@linkinside.com.br"
+  email = "myemail@your-domain.com"
   storage = "acme.json"
   [certificatesResolvers.lets-encrypt.acme.tlsChallenge]
 

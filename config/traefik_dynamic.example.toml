@@ -1,11 +1,11 @@
 [http.middlewares.simpleAuth.basicAuth]
   users = [
-    # htpasswd -nb user password
-    "user:password"
+    # htpasswd -nb admin my_secret_password
+    "admin:$apr1$t8.q6q7g$V0GH0FOVeTd796LWLmQzX1"
   ]
 
 [http.routers.api]
-  rule = "Host(`my-domain.com`)"
+  rule = "Host(`traefik.your-domain.com`)"
   entrypoints = ["websecure"]
   middlewares = ["simpleAuth"]
   service = "api@internal"

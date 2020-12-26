@@ -22,9 +22,9 @@ services:
     container_name: wordpress
     restart: always
     environment:
-      - WORDPRESS_DB_PASSWORD=${DB_PASSWORD}
+      - WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD}
     labels:
-      - traefik.http.routers.wordpress.rule=Host(`${HOST_BLOG}`)
+      - traefik.http.routers.wordpress.rule=Host(`${HOST_WP}`)
       - traefik.http.routers.wordpress.tls=true
       - traefik.http.routers.wordpress.tls.certresolver=lets-encrypt
       - traefik.port=80
@@ -39,7 +39,7 @@ services:
     container_name: mysql
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     volumes:
       - mysql_data:/var/lib/mysql
     networks:
@@ -57,20 +57,10 @@ services:
     networks: 
       - proxy
     labels:
-      # Frontend
       - traefik.http.routers.portainer.rule=Host(`${HOST_PORTAINER}`)
       - traefik.http.routers.portainer.tls=true
       - traefik.http.routers.portainer.tls.certresolver=lets-encrypt
       - traefik.http.services.portainer.loadbalancer.server.port=9000
-        #- traefik.port=9000
-
-      # Edge
-      #- traefik.enable=false
-      #- traefik.http.routers.edge.rule=Host(`${HOST_PORTAINER_EDGE}`)
-      #- traefik.http.routers.edge.tls=true
-      #- traefik.http.routers.edge.tls.certresolver=lets-encrypt
-      #- traefik.http.services.edge.loadbalancer.server.port=8000
-        #- traefik.port=8000
 
 networks:       
   proxy:
